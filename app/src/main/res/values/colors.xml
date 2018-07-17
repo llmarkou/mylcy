@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="white_background">#ffffff</color>
+    <color name="T_4D">#4D4D4D</color>
+    <color name="T_99">#999999</color>
+    <color name="T_F2">#F2F2F2</color>
+    <color name="topic">#627984</color>
+    <color name="yellow_feC82e">#FEC82E</color>
+    <color name="bg_img_load">#E0E0E0</color>
+    <color name="black">#333</color>
+    <color name="cBackground">#F6F6F6</color>
+    <color name="cXian">#d8d8d8</color>
+    <color name="cBtnBackground">#F07E28</color>
+</resources>

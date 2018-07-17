@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/intr_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v4.view.ViewPager>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="45dp"
+        android:gravity="center">
+
+        <View
+            android:id="@+id/intr_view1"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:background="@drawable/shape_dotted_orange" />
+
+        <View
+            android:id="@+id/intr_view2"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/shape_dotted_white_stroke_orange" />
+
+        <View
+            android:id="@+id/intr_view3"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/shape_dotted_white_stroke_orange" />
+
+        <View
+            android:id="@+id/intr_view4"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/shape_dotted_white_stroke_orange" />
+
+    </LinearLayout>
+    <Button
+        android:id="@+id/intr_btn_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="28dp"
+        android:layout_alignParentBottom="true"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:background="@mipmap/enter_app"
+        android:visibility="gone" />
+</RelativeLayout>
+

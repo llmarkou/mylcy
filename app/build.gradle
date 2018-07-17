@@ -1,0 +1,129 @@
+apply plugin: 'com.android.application'
+
+def buildTime() {
+    return new Date().format("yyyyMMdd", TimeZone.getTimeZone("UTC"))
+}
+
+android {
+
+    signingConfigs {
+        release {
+            storeFile file(RELEASE_STORE_FILE)
+            keyAlias RELEASE_KEY_ALIAS
+            storePassword RELEASE_KEY_PASSWORD
+            keyPassword RELEASE_STORE_PASSWORD
+        }
+    }
+
+    lintOptions {
+        //发生lint检查错误时也不中止构建
+        abortOnError false
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    defaultConfig {
+        applicationId "com.lbbs.test"
+        buildToolsVersion rootProject.ext.buildToolsVersion
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+
+        raptest {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            resValue "string", "app_name", "debugTest"
+            buildConfigField "String", "ENVIRONMENT", '"debug"'
+            buildConfigField "String", "BASE_URL", "\"http://10.138.61.59:10000/\""
+            buildConfigField "String", "", "\"http://10.138.61.59:10000/appH5/#\""
+            buildConfigField "String", "BABASE_H5_URLSE_SERVER", "\"app\""
+        }
+
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            resValue "string", "app_name", "debugTest"
+            buildConfigField "String", "ENVIRONMENT", '"debug"'
+            buildConfigField "String", "BASE_URL", "\"http://10.138.61.59:10000/\""
+            buildConfigField "String", "BASE_H5_URL", "\"http://10.138.61.59:10000/appH5/#\""
+            buildConfigField "String", "BASE_SERVER", "\"app\""
+        }
+
+        release {
+            //资源压缩和minifyEnabled需要同步开启才行
+            shrinkResources true
+            //是否混淆
+            minifyEnabled true
+            //是否移除无用资源
+            zipAlignEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "ENVIRONMENT", '"release"'
+            signingConfig release.signingConfig
+            resValue "string", "app_name", "Test"
+            buildConfigField "String", "BASE_URL", "\"https://shandai.****.cn/\""
+            buildConfigField "String", "BASE_H5_URL", "\"https://shandai.****.cn/#\""
+            buildConfigField "String", "BASE_SERVER", "\"app\""
+        }
+
+        dev {
+            minifyEnabled false
+            zipAlignEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+            resValue "string", "app_name", "devTest"
+            buildConfigField "String", "ENVIRONMENT", '"dev"'
+            buildConfigField "String", "BASE_URL", "\"http://10.138.61.59:10000/\""
+            buildConfigField "String", "BASE_H5_URL", "\"http://10.138.61.59:10000/appH5/#\""
+            buildConfigField "String", "BASE_SERVER", "\"app\""
+        }
+
+        //自定义生成的apk名称
+        applicationVariants.all { variant ->
+            if (!variant.buildType.name.equals('debug')) {
+                variant.outputs.all { output ->
+                    def outputFile = output.outputFile
+                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                        //def fileName = "Test-V"+defaultConfig.versionCode+"-"+buildTime()+"-"+getSvnRevision()+".apk"
+                        def fileName = "TestK.apk"
+                        outputFileName = fileName
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.android.support:multidex:1.0.1'
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    implementation 'com.android.support:support-v4:26.1.0'
+    implementation 'com.google.android.gms:play-services-plus:11.8.0'
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+    implementation 'com.squareup.retrofit2:converter-gson:2.0.2'
+    implementation 'com.squareup.retrofit2:retrofit:2.0.2'
+    implementation 'com.squareup.okhttp3:okhttp-urlconnection:3.2.0'
+    implementation 'com.android.support:design:26.1.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    implementation 'cat.ereza:customactivityoncrash:1.5.0'
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+    implementation 'com.zhy:base-rvadapter:3.0.3'
+    implementation 'com.timmy.tdialog:tdialog:1.3.1'
+}
